@@ -29,7 +29,7 @@ public class App {
 
     private static final Logger logger = Logger.getLogger(App.class.getName());
     // End code for logging exercise
-    
+
     /**
      * @param args the command line arguments
      */
@@ -71,22 +71,23 @@ public class App {
 
         try (Scanner scanner = new Scanner(System.in)) {
             System.out.print("Enter a 4 letter word for a guess or q to quit: ");
-            String guess = scanner.nextLine(); 
+            String guess = scanner.nextLine();
 
             while (!guess.equals("q")) {
 
-                if (guess.matches("^[a-zA-Z]{4}$")) { 
-                    System.out.println("You've guessed '" + guess+"'.");
+                if (guess.matches("^[a-zA-Z]{4}$")) {
+                    
+                    System.out.println("You've guessed '" + guess + "'.");
 
-                if (wordleDatabaseConnection.isValidWord(guess)) { 
-                    System.out.println("Success! It is in the the list.\n");
-                }else{
-                    System.out.println("Sorry. This word is NOT in the the list.\n");
+                    if (wordleDatabaseConnection.isValidWord(guess)) {
+                        System.out.println("Success! It is in the the list.\n");
+                    } else {
+                        System.out.println("Sorry. This word is NOT in the the list.\n");
+                    }
+                } else {
+                    System.out.println("The word '" + guess + "' is not a valid word.");
                 }
-            } else {
-                System.out.println("The word '" + guess + "' is not a valid word. ");
-            }
-                System.out.print("Enter a 4 letter word for a guess or q to quit: " );
+                System.out.print("Enter a 4 letter word for a guess or q to quit: ");
                 guess = scanner.nextLine();
             }
         } catch (NoSuchElementException | IllegalStateException e) {
