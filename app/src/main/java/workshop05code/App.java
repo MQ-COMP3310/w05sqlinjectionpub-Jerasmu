@@ -71,7 +71,7 @@ public class App {
 
         try (Scanner scanner = new Scanner(System.in)) {
             System.out.print("Enter a 4 letter word for a guess or q to quit: ");
-            String guess = scanner.nextLine();
+            String guess = scanner.nextLine(); 
 
             while (!guess.equals("q")) {
                 System.out.println("You've guessed '" + guess+"'.");
