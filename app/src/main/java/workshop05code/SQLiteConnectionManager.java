@@ -64,12 +64,12 @@ public class SQLiteConnectionManager {
         try (Connection conn = DriverManager.getConnection(databaseURL)) {
             if (conn != null) {
                 DatabaseMetaData meta = conn.getMetaData();
-                System.out.println("The driver name is " + meta.getDriverName());
-                System.out.println("A new database has been created.");
+                logger.log(Level.INFO, "The driver name is {0}", meta.getDriverName());
+                logger.log(Level.INFO, "A new database has been created.");
 
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, e.getMessage());
         }
     }
 
@@ -88,7 +88,7 @@ public class SQLiteConnectionManager {
                     return true;
                 }
             } catch (SQLException e) {
-                System.out.println(e.getMessage());
+                logger.log(Level.SEVERE, e.getMessage());
                 return false;
             }
         }
@@ -113,7 +113,7 @@ public class SQLiteConnectionManager {
                 return true;
 
             } catch (SQLException e) {
-                System.out.println(e.getMessage());
+                logger.log(Level.SEVERE, e.getMessage());
                 return false;
             }
         }
@@ -135,7 +135,7 @@ public class SQLiteConnectionManager {
                     pstmt.setString(2, word);
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, e.getMessage());
         }
 
     }
@@ -147,7 +147,7 @@ public class SQLiteConnectionManager {
      * @return true if guess exists in the database, false otherwise
      */
     public boolean isValidWord(String guess) {
-        String sql = "SELECT count(id) as total FROM validWords WHERE word like ? ";
+        String sql = "SELECT count(id) as total FROM validWords WHERE word like ? ;";
 
         try (Connection conn = DriverManager.getConnection(databaseURL);
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -161,7 +161,7 @@ public class SQLiteConnectionManager {
             return false;
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, e.getMessage());
             return false;
         }
 
